@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<main class="profile my-md">
+    <div class="container">
+      <div class="layout">
+        <div class="column column--1of3">
+          <div class="card text-center">
+            <div class="card__body dev">
+              <img class="avatar avatar--xl" src="{{ profile.profile_image.url }}" />
+              <h2 class="prod__name">{{profile.name}}</h2>
+              <p class="prod__title">{{profile.short_intro}}</p>
+              <p class="prod__location">products from {{profile.location}}</p>
+              <ul class="prod__social">
+                
+                  {% if profile.website %}
+                  <a title="Personal Website" href="{{profile.website}}" target="_blank"><i class="im im-globe">website</i></a>
+                  {% endif %}
+              </ul>
+
+              {% if request.user.profile.id != profile.id  %}
+              <a href="{% url 'create_message' profile.id %}"" class="btn btn--sub btn--lg">Send Message </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        
+        <div class="column column--2of3">
+          <div class="devInfo">
+            <h3 class="prodInfo__title">About Me</h3>
+            <p class="prodInfo__about">
+              {{profile.bio}}
+            </p>
+          </div>
+          
+          <div class="prodInfo">
+            <h3 class="dprodInfo__title">Products</h3>
+            <div class="grid grid--two">
+              {% for product in profile.products_set.all %}
+              <div class="column">
+                <div class="card project">
+                  <a href="{% url 'product' product.id %}" class="product">
+                    <img class="project__thumbnail" src="{{product.featured_image.url}}" alt="project thumbnail" />
+                    <div class="card__body">
+                      <h3 class="product">{{product.title}}</h3>
+                      <p><a class="product_owner" href="{% url 'user_profile' product.owner.id %}">By {{product.name}}</a></p>
+                      <p class="product--rating">
+                        <span style="font-weight: bold;">{{product.vote_ratio}}%</span> Postitive
+                        Feedback {{product.vote_total}}
+                      </p>
+                      </p>
+                      {% endfor %}                      
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+

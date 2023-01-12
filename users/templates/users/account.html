@@ -1,0 +1,74 @@
+{% extends 'main.html' %}
+{% block content %}
+<main class="settingsPage profile my-md">
+  <div class="container">
+    <div class="layout">
+      <div class="column column--1of3">
+        <div class="card text-center">
+          <div class="card__body dev">
+            <a class="tag tag--pill tag--main settings__btn" href="{% url 'edit_account' %}"><i class="im im-edit"></i> Edit</a>
+            <img class="avatar avatar--xl dev__avatar" src="{{profile.profile_image.url}}" />
+            <h2 class="dev__name">{{profile.name}}</h2>
+            <p class="dev__title">{{profile.short_intro}}</p>
+            
+            <p class="dev__location">Based in {{profile.location}}</p>
+            <ul class="prod__social">
+              {% if profile.website %}
+                  <li>
+                  <a title="Personal Website" href="{{profile.website}}" target="_blank"><i class="im im-globe">website</i></a>
+                </li>
+                {% endif %}
+              </ul>
+              
+        <div class="devInfo">
+          <h3 class="prodInfo__title">About Me</h3>
+          <p class="prodInfo__about">
+            <p class="prod__title">{{profile.bio}}</p>
+          </p>
+        </div>
+
+      <tr>
+            <td class="settings__tableActions">
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'edit_account' %}"><i class="im im-edit"></i> Edit</a>
+              <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-x-mark-circle-o"></i>
+                Delete</a>
+            </td>
+          </tr>
+        </table>
+
+        <div class="settings">
+          <h3 class="settings__title">Products</h3>
+          <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'createproduct' %}"><i class="im im-plus"></i> Add Product</a>
+        </div>
+
+        
+        <table class="settings__table">
+          {% for product in products %}
+          <tr>
+            <td class="settings__thumbnail">
+             <a href="{% url 'product' product.id %}"><img src="{{product.featured_image.url}}" alt="Product Thumbnail" />{{product.title}}</a>
+             
+            </td>
+          </tr>
+          </td>
+   
+        </tr>
+        <td class="settings__tableActions">
+          <a class="tag tag--pill tag--main settings__btn" href="{% url 'update-product' product.id %}"><i class="im im-edit"></i> Edit</a>
+          <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete-product' product.id %}"><i class="im im-x-mark-circle-o"></i>
+            Delete</a>
+        </td>
+          {% endfor %}
+          
+            
+           
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
+
+
+  
